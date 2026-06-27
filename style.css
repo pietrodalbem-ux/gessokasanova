@@ -1,37 +1,34 @@
 /* ==========================================================================
-   Design System - Gessokasanova Elegância Arquitetônica
+   Design System - Gessokasanova (Serviço Local & Profissional)
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 
 :root {
-    /* Color Palette - Editorial & Organic */
-    --color-bg-main: #FAF9F6; /* Off-white / Pearl */
-    --color-bg-secondary: #F2EFE9; /* Sand / Beige */
+    /* Color Palette - Solid & Reliable */
+    --color-bg-main: #FFFFFF; /* Pure white for a clean look */
+    --color-bg-secondary: #F3F4F6; /* Light gray for sections */
     --color-bg-card: #FFFFFF;
     
-    --color-primary: #1A2B4C; /* Deep Navy Blue */
-    --color-primary-light: #2A3F6C;
+    --color-primary: #0F52BA; /* Strong, reliable builder blue */
+    --color-primary-light: #1A66D4;
     
-    --color-accent: #D4AF37; /* Subtle Gold for small details */
-    
-    --color-text-main: #2C3E50;
-    --color-text-muted: #5D6D7E;
+    --color-text-main: #1F2937; /* Dark gray */
+    --color-text-muted: #4B5563; /* Medium gray */
     
     --color-whatsapp: #25D366;
     --color-whatsapp-hover: #1EAE53;
     
     /* Typography */
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Poppins', sans-serif;
+    --font-main: 'Roboto', sans-serif;
     
     /* Layout */
     --container-width: 1140px;
-    --section-padding: 100px 20px;
+    --section-padding: 80px 20px;
     
     /* Effects */
-    --transition-smooth: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    --border-radius: 4px; /* Less rounded, more architectural */
-    --shadow-soft: 0 10px 30px rgba(26, 43, 76, 0.05);
+    --transition-smooth: 0.3s ease;
+    --border-radius: 6px; /* Standard, solid corners */
+    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 /* ==========================================================================
@@ -49,18 +46,18 @@ html {
 }
 
 body {
-    font-family: var(--font-body);
+    font-family: var(--font-main);
     background-color: var(--color-bg-main);
     color: var(--color-text-main);
-    line-height: 1.7;
+    line-height: 1.6;
     overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    color: var(--color-primary);
+    font-family: var(--font-main);
+    color: var(--color-text-main);
     line-height: 1.2;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 a {
@@ -88,18 +85,18 @@ ul {
    Typography Utilities
    ========================================================================== */
 .section-title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 1.5rem;
-    position: relative;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    font-weight: 900;
+    text-transform: uppercase;
 }
 
 .section-subtitle {
-    font-family: var(--font-body);
     font-size: 1.1rem;
     color: var(--color-text-muted);
-    max-width: 600px;
-    margin-bottom: 4rem;
-    font-weight: 300;
+    max-width: 700px;
+    margin-bottom: 3rem;
 }
 
 .text-center { text-align: center; }
@@ -112,45 +109,44 @@ ul {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 16px 36px;
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
+    gap: 10px;
+    padding: 15px 30px;
+    font-weight: 700;
+    font-size: 1rem;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: var(--transition-smooth);
     border: none;
-    text-transform: uppercase;
 }
 
 .btn-primary {
     background-color: var(--color-primary);
     color: #FFFFFF;
+    box-shadow: 0 4px 6px rgba(15, 82, 186, 0.2);
 }
 
 .btn-primary:hover {
     background-color: var(--color-primary-light);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(26, 43, 76, 0.15);
+    box-shadow: 0 6px 12px rgba(15, 82, 186, 0.3);
 }
 
 .btn-whatsapp {
     background-color: var(--color-whatsapp);
     color: white;
+    box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2);
 }
 
 .btn-whatsapp:hover {
     background-color: var(--color-whatsapp-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+    box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
 }
 
 .btn-outline {
     background-color: transparent;
     color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+    border: 2px solid var(--color-primary);
 }
 
 .btn-outline:hover {
@@ -167,16 +163,14 @@ ul {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 24px 0;
-    background-color: rgba(250, 249, 246, 0.95);
-    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     transition: var(--transition-smooth);
-    border-bottom: 1px solid rgba(26, 43, 76, 0.05);
 }
 
 .navbar.scrolled {
-    padding: 16px 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    padding: 12px 0;
 }
 
 .nav-container {
@@ -186,41 +180,25 @@ ul {
 }
 
 .brand {
-    font-family: var(--font-heading);
     font-size: 1.8rem;
-    font-weight: 700;
+    font-weight: 900;
     color: var(--color-primary);
-    letter-spacing: 1px;
 }
 
 .nav-links {
     display: flex;
-    gap: 32px;
+    gap: 25px;
     align-items: center;
 }
 
 .nav-link {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-main);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    position: relative;
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--color-primary);
-    transition: var(--transition-smooth);
-}
-
-.nav-link:hover::after, .nav-link.active::after {
-    width: 100%;
+.nav-link:hover, .nav-link.active {
+    color: var(--color-primary);
 }
 
 .mobile-menu-btn {
@@ -233,22 +211,21 @@ ul {
 }
 
 /* ==========================================================================
-   Hero Section - Editorial Style
+   Hero Section - Solid & Direct
    ========================================================================== */
 .hero {
-    min-height: 100vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     padding-top: 80px;
-    background-color: var(--color-bg-main);
+    background-color: var(--color-bg-secondary);
     position: relative;
-    overflow: hidden;
 }
 
 .hero .container {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-    gap: 60px;
+    gap: 40px;
     align-items: center;
 }
 
@@ -259,54 +236,45 @@ ul {
 
 .hero-tag {
     display: inline-block;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
+    padding: 6px 12px;
+    background-color: rgba(15, 82, 186, 0.1);
+    color: var(--color-primary);
+    border-radius: 4px;
+    font-weight: 700;
+    margin-bottom: 20px;
 }
 
 .hero-title {
-    font-size: clamp(3rem, 6vw, 4.5rem);
-    line-height: 1.1;
-    margin-bottom: 30px;
-}
-
-.hero-title i {
-    font-style: italic;
-    color: var(--color-text-muted);
-    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 20px;
 }
 
 .hero-subtitle {
     font-size: 1.1rem;
-    color: var(--color-text-main);
-    margin-bottom: 40px;
-    max-width: 500px;
-    font-weight: 300;
+    color: var(--color-text-muted);
+    margin-bottom: 35px;
+    max-width: 550px;
 }
 
 .hero-actions {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .hero-image {
     position: relative;
-    height: 80vh;
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-soft);
+    border: 5px solid white;
 }
 
 .hero-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
 }
 
 /* ==========================================================================
@@ -314,45 +282,46 @@ ul {
    ========================================================================== */
 .services {
     padding: var(--section-padding);
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg-main);
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    margin-top: 60px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
 }
 
 .service-card {
-    background: var(--color-bg-card);
-    padding: 50px 40px;
+    background: var(--color-bg-secondary);
+    padding: 40px 30px;
+    border-radius: var(--border-radius);
     transition: var(--transition-smooth);
-    border-top: 3px solid transparent;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-soft);
-    border-top-color: var(--color-primary);
+    background: #FFFFFF;
+    border-color: var(--color-primary);
 }
 
 .service-icon {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--color-primary);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .service-title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    margin-bottom: 16px;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--color-text-main);
 }
 
 .service-desc {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
-    font-weight: 300;
+    font-size: 1rem;
 }
 
 /* ==========================================================================
@@ -360,27 +329,30 @@ ul {
    ========================================================================== */
 .gallery {
     padding: var(--section-padding);
-    background-color: var(--color-bg-main);
+    background-color: var(--color-bg-secondary);
 }
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin-top: 60px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
 }
 
 .gallery-item {
     position: relative;
     overflow: hidden;
     aspect-ratio: 4/3;
+    border-radius: var(--border-radius);
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.8s ease;
+    transition: transform 0.4s ease;
 }
 
 .gallery-item:hover img {
@@ -392,80 +364,86 @@ ul {
    ========================================================================== */
 .contact {
     padding: var(--section-padding);
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg-main);
 }
 
 .contact-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 40px;
     align-items: center;
 }
 
 .contact-info {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
 }
 
 .contact-item {
     display: flex;
-    gap: 24px;
-    align-items: flex-start;
+    gap: 20px;
+    align-items: center;
 }
 
 .contact-icon {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: var(--color-primary);
-    margin-top: 4px;
+    background: var(--color-bg-secondary);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.contact-item:nth-child(2) .contact-icon {
+    color: var(--color-whatsapp);
+    background: rgba(37, 211, 102, 0.1);
 }
 
 .contact-detail h4 {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 1rem;
     color: var(--color-text-muted);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .contact-detail p, .contact-detail a {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-    color: var(--color-primary);
-    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--color-text-main);
+    font-weight: 700;
 }
 
 .social-links {
     display: flex;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 15px;
+    margin-top: 10px;
 }
 
 .social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgba(26, 43, 76, 0.2);
+    width: 45px;
+    height: 45px;
+    background-color: var(--color-primary);
+    color: white;
     border-radius: 50%;
-    color: var(--color-primary);
     font-size: 1.2rem;
 }
 
 .social-link:hover {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-primary-light);
+    transform: translateY(-2px);
 }
 
 .footer {
     text-align: center;
-    padding: 40px 20px;
-    background: var(--color-bg-main);
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 30px 20px;
+    background: var(--color-text-main);
+    color: #9CA3AF;
+    font-size: 0.9rem;
 }
 
 /* ==========================================================================
@@ -473,8 +451,8 @@ ul {
    ========================================================================== */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
 }
 
 .reveal.active {
@@ -492,12 +470,15 @@ ul {
 @media (max-width: 992px) {
     .hero .container {
         grid-template-columns: 1fr;
-        gap: 40px;
+        text-align: center;
     }
     
-    .hero-image {
-        height: 50vh;
-        order: -1; /* Image on top for mobile */
+    .hero-content {
+        margin: 0 auto;
+    }
+    
+    .hero-actions {
+        justify-content: center;
     }
     
     .contact-wrapper {
@@ -516,12 +497,13 @@ ul {
         left: -100%;
         width: 100%;
         height: calc(100vh - 75px);
-        background: var(--color-bg-main);
+        background: #FFFFFF;
         flex-direction: column;
         justify-content: flex-start;
-        padding-top: 40px;
-        gap: 24px;
+        padding-top: 30px;
+        gap: 20px;
         transition: var(--transition-smooth);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
     }
     
     .nav-links.mobile-active {
