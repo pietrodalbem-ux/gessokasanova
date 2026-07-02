@@ -273,8 +273,8 @@ ul {
 
 .hero-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    display: block;
 }
 
 /* ==========================================================================
@@ -342,7 +342,7 @@ ul {
 .gallery-item {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4/3;
+    /* Removido aspect-ratio para não cortar a imagem */
     border-radius: var(--border-radius);
     border: 3px solid white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -350,13 +350,22 @@ ul {
 
 .gallery-item img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
+    height: auto;
+    display: block; /* Garante que não haja espaço extra abaixo da imagem */
+    transition: opacity 0.5s ease; /* Removido transform para evitar zoom */
 }
 
+/* Regra geral para todas as fotos dinâmicas para evitar cortes e manter a transição suave */
+.dynamic-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.5s ease;
+}
+
+/* Efeito hover com zoom removido a pedido */
 .gallery-item:hover img {
-    transform: scale(1.05);
+    opacity: 0.9;
 }
 
 /* ==========================================================================

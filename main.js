@@ -86,4 +86,64 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    // 5. Dynamic Photo Gallery (Rotaciona a cada 3 minutos)
+    const fetchAndRotatePhotos = async () => {
+        try {
+            const response = await fetch('get_fotos.php');
+            if (!response.ok) return;
+            const fotos = await response.json();
+            
+            if (fotos.length === 0) return; // Nenhuma foto encontrada na pasta
+
+            const galleryImages = document.querySelectorAll('.dynamic-photo');
+            if (galleryImages.length === 0) return;
+
+            let availablePhotos = [...fotos];
+            
+            // Função para pegar foto aleatória e remover do pool
+            const getNextPhoto = () => {
+                if (availablePhotos.length === 0) {
+                    availablePhotos = [...fotos]; // Recarrega o pool quando acabam
+                }
+                const randomIndex = Math.floor(Math.random() * availablePhotos.length);
+                return availablePhotos.splice(randomIndex, 1)[0];
+            };
+
+            // Função para atualizar as imagens
+            const updateImages = (withFade = true) => {
+                galleryImages.forEach((img, index) => {
+                    if (withFade) {
+                        setTimeout(() => {
+                            img.style.opacity = '0';
+                            setTimeout(() => {
+                                img.src = getNextPhoto();
+                                img.onload = () => { img.style.opacity = '1'; };
+                                setTimeout(() => { img.style.opacity = '1'; }, 500);
+                            }, 500);
+                        }, index * 200);
+                    } else {
+                        img.src = getNextPhoto();
+                    }
+                });
+            };
+
+            // Atualiza as fotos imediatamente ao abrir a página (sem fade, para não aparecerem as placeholders)
+            updateImages(false);
+
+            // Configura a rotação a cada 3 minutos (180000 ms)
+            setInterval(() => updateImages(true), 3 * 60 * 1000); 
+
+        } catch (error) {
+            console.error('Erro ao carregar fotos:', error);
+        }
+    };
+
+    fetchAndRotatePhotos();
+
+    // 6. Atualizar Ano do Footer Automaticamente
+    const currentYearElement = document.getElementById('current-year');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
 });
