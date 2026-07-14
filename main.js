@@ -90,11 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Dynamic Photo Gallery (Rotaciona a cada 3 minutos)
     const fetchAndRotatePhotos = async () => {
         try {
-            const response = await fetch('get_fotos.php');
-            if (!response.ok) return;
-            const fotos = await response.json();
+            // Arrays com as fotos agora são estáticos e os arquivos estão otimizados (.jpg)
+            const fotos = [];
+            for (let i = 1; i <= 18; i++) {
+                fotos.push(`fotos/${i}.jpg`);
+            }
             
-            if (fotos.length === 0) return; // Nenhuma foto encontrada na pasta
+            if (fotos.length === 0) return; // Nenhuma foto
 
             const galleryImages = document.querySelectorAll('.dynamic-photo');
             if (galleryImages.length === 0) return;
