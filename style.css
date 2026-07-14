@@ -11,6 +11,7 @@
     
     --color-primary: #0F52BA; /* Strong, reliable builder blue */
     --color-primary-light: #1A66D4;
+    --color-primary-dark: #0A3D8F;
     
     --color-text-main: #1F2937; /* Dark gray */
     --color-text-muted: #4B5563; /* Medium gray */
@@ -27,8 +28,9 @@
     
     /* Effects */
     --transition-smooth: 0.3s ease;
-    --border-radius: 6px; /* Standard, solid corners */
+    --border-radius: 8px;
     --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
 /* ==========================================================================
@@ -89,7 +91,6 @@ ul {
     margin-bottom: 1rem;
     color: var(--color-primary);
     font-weight: 900;
-    text-transform: uppercase;
 }
 
 .section-subtitle {
@@ -101,6 +102,7 @@ ul {
 
 .text-center { text-align: center; }
 .mx-auto { margin-left: auto; margin-right: auto; }
+.text-left { text-align: left; }
 
 /* ==========================================================================
    Buttons
@@ -179,10 +181,24 @@ ul {
     align-items: center;
 }
 
+.brand-container {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
 .brand {
     font-size: 1.8rem;
     font-weight: 900;
     color: var(--color-primary);
+}
+
+.brand-subtitle {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .nav-links {
@@ -211,21 +227,23 @@ ul {
 }
 
 /* ==========================================================================
-   Hero Section - Solid & Direct
+   Hero Section & Before/After Showcase
    ========================================================================== */
 .hero {
-    min-height: 85vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
-    padding-top: 80px;
+    padding-top: 100px;
+    padding-bottom: 60px;
     background-color: var(--color-bg-secondary);
     position: relative;
+    overflow: hidden;
 }
 
 .hero .container {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
     align-items: center;
 }
 
@@ -234,27 +252,16 @@ ul {
     z-index: 2;
 }
 
-.hero-tag {
-    display: inline-block;
-    padding: 6px 12px;
-    background-color: rgba(15, 82, 186, 0.1);
-    color: var(--color-primary);
-    border-radius: 4px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
     line-height: 1.2;
     margin-bottom: 20px;
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--color-text-muted);
     margin-bottom: 35px;
-    max-width: 550px;
 }
 
 .hero-actions {
@@ -278,6 +285,46 @@ ul {
 }
 
 /* ==========================================================================
+   Diferenciais Section
+   ========================================================================== */
+.differentiators {
+    padding: 30px 20px;
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.diff-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    text-align: center;
+}
+
+.diff-item {
+    flex: 1 1 150px;
+    max-width: 200px;
+    padding: 10px;
+}
+
+.diff-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #60A5FA; /* light blue accent */
+}
+
+.diff-item h4 {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.diff-item p {
+    color: #DBEAFE;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
    Services Section
    ========================================================================== */
 .services {
@@ -287,9 +334,8 @@ ul {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    margin-top: 40px;
 }
 
 .service-card {
@@ -302,7 +348,7 @@ ul {
 
 .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-hover);
     background: #FFFFFF;
     border-color: var(--color-primary);
 }
@@ -332,44 +378,119 @@ ul {
     background-color: var(--color-bg-secondary);
 }
 
+
+
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    margin-top: 40px;
 }
 
 .gallery-item {
     position: relative;
-    overflow: hidden;
-    /* Removido aspect-ratio para não cortar a imagem */
     border-radius: var(--border-radius);
     border: 3px solid white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.gallery-item.hide {
+    display: none;
 }
 
 .gallery-item img {
     width: 100%;
-    height: auto;
-    display: block; /* Garante que não haja espaço extra abaixo da imagem */
-    transition: opacity 0.5s ease; /* Removido transform para evitar zoom */
-}
-
-/* Regra geral para todas as fotos dinâmicas para evitar cortes e manter a transição suave */
-.dynamic-photo {
-    width: 100%;
-    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
     display: block;
-    transition: opacity 0.5s ease;
+    transition: transform 0.5s ease;
 }
 
-/* Efeito hover com zoom removido a pedido */
 .gallery-item:hover img {
-    opacity: 0.9;
+    transform: scale(1.05);
 }
 
 /* ==========================================================================
-   Contact Section
+   Testimonials Section
+   ========================================================================== */
+.testimonials {
+    padding: var(--section-padding);
+    background-color: var(--color-bg-main);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: var(--color-bg-secondary);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+}
+
+.stars {
+    color: #FBBF24; /* Yellow star */
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.review-text {
+    font-style: italic;
+    color: var(--color-text-main);
+    margin-bottom: 20px;
+}
+
+.reviewer {
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Region & Map Section
+   ========================================================================== */
+.region-map {
+    padding: var(--section-padding);
+    background-color: var(--color-bg-secondary);
+}
+
+.region-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.city-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.city-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: var(--color-text-main);
+}
+
+.city-list li i {
+    color: var(--color-primary);
+}
+
+.map-container {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 4px solid white;
+}
+
+/* ==========================================================================
+   Contact Section & Form
    ========================================================================== */
 .contact {
     padding: var(--section-padding);
@@ -377,10 +498,10 @@ ul {
 }
 
 .contact-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .contact-info {
@@ -427,7 +548,6 @@ ul {
 .social-links {
     display: flex;
     gap: 15px;
-    margin-top: 10px;
 }
 
 .social-link {
@@ -447,6 +567,54 @@ ul {
     transform: translateY(-2px);
 }
 
+/* Form Styles */
+.contact-form-container {
+    background: var(--color-bg-secondary);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--color-text-main);
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15, 82, 186, 0.1);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 .footer {
     text-align: center;
     padding: 30px 20px;
@@ -480,18 +648,19 @@ ul {
     .hero .container {
         grid-template-columns: 1fr;
         text-align: center;
-    }
-    
-    .hero-content {
-        margin: 0 auto;
+        gap: 30px;
     }
     
     .hero-actions {
         justify-content: center;
     }
     
-    .contact-wrapper {
+    .region-wrapper {
         grid-template-columns: 1fr;
+    }
+    
+    .contact-form-container {
+        padding: 30px 20px;
     }
 }
 
@@ -531,7 +700,7 @@ ul {
         width: 100%;
     }
     
-    .services-grid, .gallery-grid {
+    .city-list {
         grid-template-columns: 1fr;
     }
 }

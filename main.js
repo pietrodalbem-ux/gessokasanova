@@ -18,28 +18,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
     const navItems = document.querySelectorAll('.nav-link');
 
-    mobileBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('mobile-active');
-        // Toggle icon
-        const icon = mobileBtn.querySelector('i');
-        if (navLinks.classList.contains('mobile-active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
-
-    // Close mobile menu on link click
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            navLinks.classList.remove('mobile-active');
+    if (mobileBtn && navLinks) {
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-active');
+            // Toggle icon
             const icon = mobileBtn.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+            if (navLinks.classList.contains('mobile-active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
-    });
+
+        // Close mobile menu on link click
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('mobile-active');
+                const icon = mobileBtn.querySelector('i');
+                if(icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    }
 
     // 3. Scroll Reveal Animations (Intersection Observer)
     const revealElements = document.querySelectorAll('.reveal');
@@ -64,17 +68,15 @@ document.addEventListener('DOMContentLoaded', () => {
         revealOnScroll.observe(el);
     });
 
-    // 4. Smooth Scrolling for Anchor Links (Fallback if CSS scroll-behavior is not supported)
+    // 4. Smooth Scrolling for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            
             if (targetId === '#') return;
             
             const targetElement = document.querySelector(targetId);
-            
             if (targetElement) {
+                e.preventDefault();
                 // Offset for fixed navbar
                 const navbarHeight = document.querySelector('.navbar').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
@@ -86,13 +88,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
-    // 5. Dynamic Photo Gallery (Rotaciona a cada 3 minutos)
+
+
+
+    // 6. Contact Form Submission (Basic Feedback)
+    const form = document.getElementById('orcamentoForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            // Se estiver usando FormSubmit (action="https://formsubmit.co/..."), 
+            // não precisamos de e.preventDefault() a menos que queiramos fazer via AJAX.
+            // Para manter simples e funcional sem backend complexo:
+            const emailDestination = form.getAttribute('action');
+            if (emailDestination.includes('seuemail@exemplo.com')) {
+                e.preventDefault();
+                alert('Por favor, configure seu e-mail no arquivo HTML (atributo action do formulário) para receber as mensagens.');
+            }
+        });
+    }
+
+    // 7. Dynamic Photo Gallery (Rotaciona a cada 3 minutos)
     const fetchAndRotatePhotos = async () => {
         try {
             let fotos = [];
             
-            // 1ª Tentativa: Usar o arquivo PHP (Rápido e dinâmico)
             try {
                 const response = await fetch('get_fotos.php?t=' + new Date().getTime());
                 if (response.ok) {
@@ -107,11 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn("PHP falhou, usando fallback...");
             }
             
-            // 2ª Tentativa (Fallback estático): Se o servidor não rodar PHP, busca pelas fotos .jpg dinamicamente via JS
             if (!fotos || fotos.length === 0) {
-                console.log("Usando fallback de checagem JS...");
                 let count = 1;
-                while (count <= 100) { // Limite de segurança de 100 fotos para o fallback
+                while (count <= 100) { 
                     try {
                         const testUrl = `fotos/${count}.jpg`;
                         const res = await fetch(testUrl, { method: 'HEAD' });
@@ -119,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             fotos.push(testUrl);
                             count++;
                         } else {
-                            break; // Parar quando não encontrar a próxima foto
+                            break; 
                         }
                     } catch (e) {
                         break;
@@ -128,27 +144,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (fotos.length === 0) {
-                // Se tudo falhar, tenta pelo menos as 6 primeiras fixas para não ficar branco
                 fotos = ['fotos/1.jpg', 'fotos/2.jpg', 'fotos/3.jpg', 'fotos/4.jpg', 'fotos/5.jpg', 'fotos/6.jpg'];
             }
 
-            const galleryImages = document.querySelectorAll('.dynamic-photo');
-            if (galleryImages.length === 0) return;
+            // Seleciona as imagens dinâmicas (Hero e Galeria)
+            const dynamicImages = document.querySelectorAll('.dynamic-photo, .hero-img-placeholder');
+            if (dynamicImages.length === 0) return;
 
             let availablePhotos = [...fotos];
             
-            // Função para pegar foto aleatória e remover do pool
             const getNextPhoto = () => {
                 if (availablePhotos.length === 0) {
-                    availablePhotos = [...fotos]; // Recarrega o pool quando acabam
+                    availablePhotos = [...fotos]; 
                 }
                 const randomIndex = Math.floor(Math.random() * availablePhotos.length);
                 return availablePhotos.splice(randomIndex, 1)[0];
             };
 
-            // Função para atualizar as imagens
             const updateImages = (withFade = true) => {
-                galleryImages.forEach((img, index) => {
+                dynamicImages.forEach((img, index) => {
                     if (withFade) {
                         setTimeout(() => {
                             img.style.opacity = '0';
@@ -164,10 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             };
 
-            // Atualiza as fotos imediatamente ao abrir a página (sem fade, para não aparecerem as placeholders)
             updateImages(false);
-
-            // Configura a rotação a cada 3 minutos (180000 ms)
             setInterval(() => updateImages(true), 3 * 60 * 1000); 
 
         } catch (error) {
@@ -177,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchAndRotatePhotos();
 
-    // 6. Atualizar Ano do Footer Automaticamente
+    // 8. Atualizar Ano do Footer Automaticamente
     const currentYearElement = document.getElementById('current-year');
     if (currentYearElement) {
         currentYearElement.textContent = new Date().getFullYear();
