@@ -90,13 +90,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Dynamic Photo Gallery (Rotaciona a cada 3 minutos)
     const fetchAndRotatePhotos = async () => {
         try {
-            // Arrays com as fotos agora são estáticos e os arquivos estão otimizados (.jpg)
-            const fotos = [];
-            for (let i = 1; i <= 18; i++) {
-                fotos.push(`fotos/${i}.jpg`);
+            let fotos = [];
+            
+            // 1ª Tentativa: Usar o arquivo PHP (Rápido e dinâmico)
+            try {
+                const response = await fetch('get_fotos.php?t=' + new Date().getTime());
+                if (response.ok) {
+                    const text = await response.text();
+                    try {
+                        fotos = JSON.parse(text);
+                    } catch (e) {
+                        console.warn("Resposta do PHP não é JSON válido.");
+                    }
+                }
+            } catch (error) {
+                console.warn("PHP falhou, usando fallback...");
             }
             
-            if (fotos.length === 0) return; // Nenhuma foto
+            // 2ª Tentativa (Fallback estático): Se o servidor não rodar PHP, busca pelas fotos .jpg dinamicamente via JS
+            if (!fotos || fotos.length === 0) {
+                console.log("Usando fallback de checagem JS...");
+                let count = 1;
+                while (count <= 100) { // Limite de segurança de 100 fotos para o fallback
+                    try {
+                        const testUrl = `fotos/${count}.jpg`;
+                        const res = await fetch(testUrl, { method: 'HEAD' });
+                        if (res.ok) {
+                            fotos.push(testUrl);
+                            count++;
+                        } else {
+                            break; // Parar quando não encontrar a próxima foto
+                        }
+                    } catch (e) {
+                        break;
+                    }
+                }
+            }
+
+            if (fotos.length === 0) {
+                // Se tudo falhar, tenta pelo menos as 6 primeiras fixas para não ficar branco
+                fotos = ['fotos/1.jpg', 'fotos/2.jpg', 'fotos/3.jpg', 'fotos/4.jpg', 'fotos/5.jpg', 'fotos/6.jpg'];
+            }
 
             const galleryImages = document.querySelectorAll('.dynamic-photo');
             if (galleryImages.length === 0) return;
